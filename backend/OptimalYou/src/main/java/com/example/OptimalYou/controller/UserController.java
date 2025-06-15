@@ -39,9 +39,4 @@ public class UserController {
 		else
 			return new ResponseEntity<>("failure",HttpStatus.UNAUTHORIZED);
 	}
-
-	@GetMapping("dummy")
-	public String dummy(){
-		return "hi";
-	}
 }

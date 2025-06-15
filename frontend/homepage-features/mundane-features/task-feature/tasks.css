@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background: #50c9c3;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header nav {
+    margin-top: 10px;
+}
+
+header nav button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    background: white;
+    color: #50c9c3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+header nav button:hover {
+    background: #e6f7f7;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+#task-form input, #task-form textarea, #task-form select {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#task-form button {
+    background: #50c9c3;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#task-form button:hover {
+    background: #45b8af;
+}
+
+.task-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-actions button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    background: #50c9c3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.task-actions button:hover {
+    background: #45b8af;
+}
+#task-search {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#search-bar {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#search-btn {
+    padding: 10px 15px;
+    background: #50c9c3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#search-btn:hover {
+    background: #45b8af;
+}
+
+.task-actions button.edit-btn {
+    background: #ffc107;
+}
+
+.task-actions button.edit-btn:hover {
+    background: #e0a800;
+}
