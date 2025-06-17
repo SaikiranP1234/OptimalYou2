@@ -1,6 +1,7 @@
 package com.example.OptimalYou.service;
 
 import com.example.OptimalYou.dao.TaskRepo;
+import com.example.OptimalYou.model.Note;
 import com.example.OptimalYou.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.List;
 public class TaskService {
 
     @Autowired
-    TaskRepo repo;
+    private TaskRepo repo;
 
     private final Comparator<Task> orderOfPriority = new Comparator<Task>() {
         @Override
@@ -29,7 +30,23 @@ public class TaskService {
         try{
             repo.save(task);
             return new ResponseEntity<>("success", HttpStatus.CREATED);
-        }catch (Exception e){
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<String> editTask(Task task) {
+        try{
+            Task original = repo.findById(task.getId()).orElse(null);
+            if(original == null)
+                return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+            task.setIssuedDate(original.getIssuedDate());
+            repo.save(task);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -43,7 +60,8 @@ public class TaskService {
             t.setCompleted(true);
             repo.save(t);
             return new ResponseEntity<>("success", HttpStatus.OK);
-        }catch (Exception e){
+        }
+        catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -119,5 +137,4 @@ public class TaskService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }

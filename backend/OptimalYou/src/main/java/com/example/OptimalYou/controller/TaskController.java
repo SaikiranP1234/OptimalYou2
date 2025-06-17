@@ -10,54 +10,57 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("mundane")
 @CrossOrigin
 public class TaskController {
 
     @Autowired
     TaskService service;
 
-    @PostMapping("mundane/create")
+    @PostMapping("create")
     public ResponseEntity<String> create(@RequestBody Task task){
         return service.createTask(task);
     }
 
     //for this controller function, you must send the task id also.
-    @PostMapping("mundane/edit")
+    //Prahith, pls review the logic behind this.
+    @PostMapping("edit")
     public ResponseEntity<String> edit(@RequestBody Task task){
-        return service.createTask(task);
+        return service.editTask(task);
     }
 
-    @PostMapping("mundane/completed/{id}")
+    @PostMapping("completed/{id}")
     public ResponseEntity<String> completed(@PathVariable int id){
         return service.completedTask(id);
     }
 
-    @GetMapping("mundane/all/{username}")
+    @GetMapping("all/{username}")
     public ResponseEntity<List<Task>> allTasks(@PathVariable String username){
         return service.getAllTasks(username);
     }
 
-    @GetMapping("mundane/progressing/{username}")
+    @GetMapping("progressing/{username}")
     public ResponseEntity<List<Task>> progressingTasks(@PathVariable String username){
         return service.getAllTasksInProgress(username);
     }
 
-    @GetMapping("mundane/missed/{username}")
+    @GetMapping("missed/{username}")
     public ResponseEntity<List<Task>> missedTasks(@PathVariable String username){
         return service.getAllTasksMissed(username);
     }
 
-    @GetMapping("mundane/completed/{username}")
+    @GetMapping("completed/{username}")
     public ResponseEntity<List<Task>> completedTasks(@PathVariable String username){
         return service.getAllTasksCompleted(username);
     }
 
-    @GetMapping("mundane/search/{username}/{key}")
+    @GetMapping("search/{username}/{key}")
     public ResponseEntity<List<Task>> searchTasks(@PathVariable String username, @PathVariable String key){
         return service.searchTasks(username, key);
     }
 
-    @DeleteMapping("mundane/delete/{id}")
+    //there is a way for someone to exploit this endpoint, Prahith if you are reading this comment, pls look into it
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<String> delete(@PathVariable int id){
         return service.deleteTask(id);
     }
