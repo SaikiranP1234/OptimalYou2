@@ -15,7 +15,7 @@ import java.util.List;
 public class NoteController {
 
     @Autowired
-    NoteService service;
+    private NoteService service;
 
     @PostMapping("create")
     public ResponseEntity<String> create(@RequestBody NoteWrapper note){
