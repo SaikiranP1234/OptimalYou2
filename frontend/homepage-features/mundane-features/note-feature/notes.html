@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="css/notes.css">
+</head>
+<body>
+    <header>
+        <input type="text" id="search-notes" placeholder="Search Notes">
+        <button id="create-note">Create Note</button>
+    </header>
+    <main id="notes-container"></main>
+
+    <!-- Modal -->
+    <div id="note-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Create/Edit Note</h2>
+            <input type="text" id="note-title" placeholder="Note Title">
+            <textarea id="note-content" placeholder="Note Content"></textarea>
+            <button id="save-note">Save</button>
+            <button id="close-modal">Cancel</button>
+        </div>
+    </div>
+
+    <script src="js/notes.js"></script>
+</body>
+</html>

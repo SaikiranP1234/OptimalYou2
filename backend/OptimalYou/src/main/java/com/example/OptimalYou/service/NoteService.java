@@ -43,7 +43,7 @@ public class NoteService {
             note.setIssuedDate(original.getIssuedDate());
             note.setId(original.getId());
             repo.save(wrapper(note));
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -58,6 +58,21 @@ public class NoteService {
             for(Note n : notes)
                 wrappers.add(wrapper(n));
             return new ResponseEntity<>(wrappers,HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<NoteWrapper> getOneNote(String username, int id) {
+        try {
+            Note note = repo.findById(id).orElse(null);
+            if(note == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            else if(!note.getUser().getUsername().equals(username))
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(wrapper(note),HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Buckets</title>
+    <link rel="stylesheet" href="css/notebuckets.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Note Buckets</h1>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Search note buckets...">
+                <button id="search-button">Search</button>
+            </div>
+            <button id="create-bucket-button">+ Create Bucket</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="buckets-section">
+            <h2>Your Note Buckets</h2>
+            <div id="buckets-container" class="buckets-container"></div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <h3 id="modal-title"></h3>
+            <div id="modal-body"></div>
+            <button id="modal-action-button" style="display: none;">Submit</button>
+        </div>
+    </div>
+
+    <script src="js/notebuckets.js"></script>
+</body>
+</html>

@@ -2,9 +2,11 @@ package com.example.OptimalYou.model.Wrappers;
 
 import com.example.OptimalYou.model.User;
 import jakarta.persistence.ManyToOne;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class NoteWrapper {
     private int id;
     private String title;

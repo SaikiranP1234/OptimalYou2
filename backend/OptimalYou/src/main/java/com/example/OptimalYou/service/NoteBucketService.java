@@ -31,7 +31,7 @@ public class NoteBucketService {
     public ResponseEntity<String> create(NoteBucketWrapper tempoBucket) {
         try {
             bucketRepo.save(wrapper(tempoBucket));
-            return new ResponseEntity<>("created",HttpStatus.OK);
+            return new ResponseEntity<>("created",HttpStatus.CREATED);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -101,6 +101,57 @@ public class NoteBucketService {
         }
     }
 
+    public ResponseEntity<List<NoteWrapper>> getNot(int bucketId) {
+        try {
+            NoteBucket bucket = bucketRepo.findById(bucketId).orElse(null);
+            if(bucket == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String user = bucket.getUser().getUsername();
+            ResponseEntity<List<NoteWrapper>> tempNotes = service.getAllNotes(user);
+            List<Note> bucketNotes = bucket.getNotes();
+            List<NoteWrapper> responses = new ArrayList<>();
+            if(!tempNotes.getStatusCode().is2xxSuccessful())
+                return new ResponseEntity<>(tempNotes.getStatusCode());
+            List<NoteWrapper> notes = tempNotes.getBody();
+            for(int i = 0; i < notes.size(); i++){
+                boolean present = false;
+                for(int j = 0; j < bucketNotes.size(); j++){
+                    if(notes.get(i).getId() == bucketNotes.get(j).getId()){
+                        present = true;
+                        break;
+                    }
+                }
+                if(!present)
+                    responses.add(notes.get(i));
+//                if(j >= bucketNotes.size() || notes.get(i).getId() != bucketNotes.get(j).getId())
+//                    responses.add(notes.get(i));
+//                else
+//                    j++;
+            }
+            return new ResponseEntity<>(responses, HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<List<NoteWrapper>> getIn(int bucketId) {
+        try {
+            NoteBucket bucket = bucketRepo.findById(bucketId).orElse(null);
+            if(bucket == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            List<NoteWrapper> wrappers = new ArrayList<>();
+            for(Note n : bucket.getNotes())
+                wrappers.add(service.wrapper(n));
+            return new ResponseEntity<>(wrappers, HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public ResponseEntity<List<NoteBucketResponse>> search(String username, String key) {
         try {
             List<NoteBucket> buckets = bucketRepo.searchNoteBucketByTitle(username, key);
@@ -140,12 +191,13 @@ public class NoteBucketService {
         bucket.setNotes(new ArrayList<Note>());
         bucket.setTitle(wrapper.getTitle());
         bucket.getUser().setUsername(wrapper.getUsername());
-        for(int id : wrapper.getNote_ids()){
-            Note note = noteRepo.findById(id).orElse(null);
-            if(note == null)
-                continue;
-            bucket.getNotes().add(note);
-        }
+        if( wrapper.getNote_ids() != null)
+            for(int id : wrapper.getNote_ids()){
+                Note note = noteRepo.findById(id).orElse(null);
+                if(note == null)
+                    continue;
+                bucket.getNotes().add(note);
+            }
         return bucket;
     }
 
@@ -159,4 +211,5 @@ public class NoteBucketService {
         bucket.setUsername(wrapper.getUser().getUsername());
         return bucket;
     }
+
 }

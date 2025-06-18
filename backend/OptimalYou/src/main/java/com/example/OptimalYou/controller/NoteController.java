@@ -17,6 +17,7 @@ public class NoteController {
     @Autowired
     private NoteService service;
 
+    //returns HttpStatus.CREATED
     @PostMapping("create")
     public ResponseEntity<String> create(@RequestBody NoteWrapper note){
         return service.create(note);
@@ -31,6 +32,11 @@ public class NoteController {
     @GetMapping("get/{username}")
     public ResponseEntity<List<NoteWrapper>> get(@PathVariable String username){
         return service.getAllNotes(username);
+    }
+
+    @GetMapping("get/{username}/{id}")
+    public ResponseEntity<NoteWrapper> get(@PathVariable String username, @PathVariable int id){
+        return service.getOneNote(username, id);
     }
 
     @GetMapping("search/{username}/{key}")

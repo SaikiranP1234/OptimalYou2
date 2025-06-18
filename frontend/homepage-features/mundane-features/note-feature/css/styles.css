@@ -1,0 +1,114 @@
+/* General Body Styles */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+  color: #333;
+}
+
+/* Navigation Bar */
+nav {
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(90deg, #50c9c3, #96deda);
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+  text-decoration: none;
+  margin: 0 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #50c9c3;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+nav a:hover {
+  background-color: #3bb3b0;
+  transform: translateY(-2px);
+}
+
+/* Welcome Heading */
+h1 {
+  color: #50c9c3;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Buttons */
+button {
+  padding: 10px 15px;
+  margin: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Create Button */
+button.create {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+button.create:hover {
+  background-color: #ffa000;
+  transform: translateY(-2px);
+}
+
+/* Delete Button */
+button.delete {
+  background-color: #ff5252;
+  color: #fff;
+}
+
+button.delete:hover {
+  background-color: #e53935;
+  transform: translateY(-2px);
+}
+
+/* Input Fields */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 12px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #50c9c3;
+  outline: none;
+}
+
+/* Forms */
+form {
+  margin: 30px auto;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* General Container Styling */
+#app {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+

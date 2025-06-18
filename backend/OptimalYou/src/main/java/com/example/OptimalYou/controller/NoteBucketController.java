@@ -20,6 +20,7 @@ public class NoteBucketController {
     @Autowired
     private NoteBucketService service;
 
+    //returns HttpStatus.CREATED
     @PostMapping("create")
     public ResponseEntity<String> create(@RequestBody NoteBucketWrapper bucket){
         return service.create(bucket);
@@ -43,6 +44,16 @@ public class NoteBucketController {
     @GetMapping("get/{username}")
     public ResponseEntity<List<NoteBucketResponse>> get(@PathVariable String username){
         return service.get(username);
+    }
+
+    @GetMapping("not-in-bucket/{bucketId}")
+    public ResponseEntity<List<NoteWrapper>> getNot(@PathVariable int bucketId){
+        return service.getNot(bucketId);
+    }
+
+    @GetMapping("/in-bucket/{bucketId}")
+    public ResponseEntity<List<NoteWrapper>> getIn(@PathVariable int bucketId){
+        return service.getIn(bucketId);
     }
 
     @GetMapping("search/{username}/{key}")
