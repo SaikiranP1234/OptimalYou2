@@ -2,14 +2,10 @@ package com.example.OptimalYou.service;
 
 import com.example.OptimalYou.model.ai.UserDietPreferences;
 import com.example.OptimalYou.model.ai.UserWorkoutPreferences;
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 
 @Service
-public class WorkoutService {
+public class AiService {
 
     public String generateWorkout(UserWorkoutPreferences preferences) {
         StringBuilder prompt = new StringBuilder();
