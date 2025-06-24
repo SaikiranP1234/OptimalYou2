@@ -1,21 +1,27 @@
-package com.example.OptimalYou.model;
+package com.example.OptimalYou.model.Wrappers;
 
-import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
-@Entity
-public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Component
+public class TaskWrapper {
     private int id;
-    @ManyToOne
-    private User user;
+    private String username;
     private String taskTitle;
     private String taskDescription;
     private int priority;
     private Date issuedDate;
     private Date deadline;
     private boolean completed;
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
 
     public Date getDeadline() {
         return deadline;
@@ -65,28 +71,20 @@ public class Task {
         this.taskTitle = taskTitle;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "TaskWrapper{" +
                 "completed=" + completed +
                 ", id=" + id +
-                ", user=" + user +
+                ", username='" + username + '\'' +
                 ", taskTitle='" + taskTitle + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", priority=" + priority +

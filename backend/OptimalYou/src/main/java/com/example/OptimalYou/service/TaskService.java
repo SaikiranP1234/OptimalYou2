@@ -3,15 +3,14 @@ package com.example.OptimalYou.service;
 import com.example.OptimalYou.dao.TaskRepo;
 import com.example.OptimalYou.model.Note;
 import com.example.OptimalYou.model.Task;
+import com.example.OptimalYou.model.User;
+import com.example.OptimalYou.model.Wrappers.TaskWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TaskService {
@@ -26,9 +25,9 @@ public class TaskService {
         }
     };
 
-    public ResponseEntity<String> createTask(Task task) {
+    public ResponseEntity<String> createTask(TaskWrapper task) {
         try{
-            repo.save(task);
+            repo.save(wrapper(task));
             return new ResponseEntity<>("success", HttpStatus.CREATED);
         }
         catch (Exception e){
@@ -37,13 +36,13 @@ public class TaskService {
         }
     }
 
-    public ResponseEntity<String> editTask(Task task) {
+    public ResponseEntity<String> editTask(TaskWrapper task) {
         try{
             Task original = repo.findById(task.getId()).orElse(null);
             if(original == null)
                 return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
             task.setIssuedDate(original.getIssuedDate());
-            repo.save(task);
+            repo.save(wrapper(task));
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (Exception e){
@@ -67,11 +66,14 @@ public class TaskService {
         }
     }
 
-    public ResponseEntity<List<Task>> getAllTasks(String username) {
+    public ResponseEntity<List<TaskWrapper>> getAllTasks(String username) {
         try{
-            List<Task> tasks = repo.findByUsername(username);
+            List<Task> tasks = repo.findByUser_Username(username);
             Collections.sort(tasks, orderOfPriority);
-            return new ResponseEntity<>(tasks,HttpStatus.OK);
+            List<TaskWrapper> wrappers = new ArrayList<>();
+            for(Task t : tasks)
+                wrappers.add(wrapper(t));
+            return new ResponseEntity<>(wrappers,HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -79,11 +81,14 @@ public class TaskService {
         }
     }
 
-    public ResponseEntity<List<Task>> getAllTasksInProgress(String username) {
+    public ResponseEntity<List<TaskWrapper>> getAllTasksInProgress(String username) {
         try{
             List<Task> tasks = repo.findByUsernameAndInProgress(username, new Date());
             Collections.sort(tasks, orderOfPriority);
-            return new ResponseEntity<>(tasks,HttpStatus.OK);
+            List<TaskWrapper> wrappers = new ArrayList<>();
+            for(Task t : tasks)
+                wrappers.add(wrapper(t));
+            return new ResponseEntity<>(wrappers,HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -91,11 +96,14 @@ public class TaskService {
         }
     }
 
-    public ResponseEntity<List<Task>> getAllTasksMissed(String username) {
+    public ResponseEntity<List<TaskWrapper>> getAllTasksMissed(String username) {
         try{
             List<Task> tasks = repo.findByUsernameAndMissed(username, new Date());
             Collections.sort(tasks, orderOfPriority);
-            return new ResponseEntity<>(tasks,HttpStatus.OK);
+            List<TaskWrapper> wrappers = new ArrayList<>();
+            for(Task t : tasks)
+                wrappers.add(wrapper(t));
+             return new ResponseEntity<>(wrappers,HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -103,11 +111,14 @@ public class TaskService {
         }
     }
 
-    public ResponseEntity<List<Task>> getAllTasksCompleted(String username) {
+    public ResponseEntity<List<TaskWrapper>> getAllTasksCompleted(String username) {
         try{
             List<Task> tasks = repo.findByUsernameAndCompleted(username);
             Collections.sort(tasks, orderOfPriority);
-            return new ResponseEntity<>(tasks,HttpStatus.OK);
+            List<TaskWrapper> wrappers = new ArrayList<>();
+            for(Task t : tasks)
+                wrappers.add(wrapper(t));
+            return new ResponseEntity<>(wrappers,HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -115,11 +126,14 @@ public class TaskService {
         }
     }
 
-    public ResponseEntity<List<Task>> searchTasks(String username, String key) {
+    public ResponseEntity<List<TaskWrapper>> searchTasks(String username, String key) {
         try{
             List<Task> tasks = repo.searchByTitleOrDescription(key, username);
             Collections.sort(tasks, orderOfPriority);
-            return new ResponseEntity<>(tasks,HttpStatus.OK);
+            List<TaskWrapper> wrappers = new ArrayList<>();
+            for(Task t : tasks)
+                wrappers.add(wrapper(t));
+            return new ResponseEntity<>(wrappers,HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -136,5 +150,32 @@ public class TaskService {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public Task wrapper(TaskWrapper taskWrapper){
+        Task task = new Task();
+        task.setId(taskWrapper.getId());
+        task.setTaskTitle(taskWrapper.getTaskTitle());
+        task.setTaskDescription(taskWrapper.getTaskDescription());
+        task.setPriority(taskWrapper.getPriority());
+        task.setIssuedDate(taskWrapper.getIssuedDate());
+        task.setDeadline(taskWrapper.getDeadline());
+        task.setCompleted(taskWrapper.isCompleted());
+        task.setUser(new User());
+        task.getUser().setUsername(taskWrapper.getUsername());
+        return task;
+    }
+
+    public TaskWrapper wrapper(Task task){
+        TaskWrapper taskWrapper = new TaskWrapper();
+        taskWrapper.setId(task.getId());
+        taskWrapper.setTaskTitle(task.getTaskTitle());
+        taskWrapper.setTaskDescription(task.getTaskDescription());
+        taskWrapper.setPriority(task.getPriority());
+        taskWrapper.setIssuedDate(task.getIssuedDate());
+        taskWrapper.setDeadline(task.getDeadline());
+        taskWrapper.setCompleted(task.isCompleted());
+        taskWrapper.setUsername(task.getUser().getUsername());
+        return taskWrapper;
     }
 }
