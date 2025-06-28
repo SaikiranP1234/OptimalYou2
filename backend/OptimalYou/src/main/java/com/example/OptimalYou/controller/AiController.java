@@ -1,5 +1,6 @@
 package com.example.OptimalYou.controller;
 
+import com.example.OptimalYou.model.ai.FinancialAdviceRequest;
 import com.example.OptimalYou.model.ai.UserDietPreferences;
 import com.example.OptimalYou.model.ai.UserWorkoutPreferences;
 import com.example.OptimalYou.service.AiService;
@@ -34,6 +35,15 @@ public class AiController {
     @PostMapping("generateDiet")
     public Flux<String> generateDiet(@RequestBody UserDietPreferences udp){
         String prompt = service.generateDiet(udp);
+        return chatClient.prompt()
+                .user(prompt)
+                .stream()
+                .content();
+    }
+
+    @PostMapping("generateAdvice")
+    public Flux<String> generateAdvice(@RequestBody FinancialAdviceRequest far){
+        String prompt = service.generateAdvice(far);
         return chatClient.prompt()
                 .user(prompt)
                 .stream()

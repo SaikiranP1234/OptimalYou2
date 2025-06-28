@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptimalYou - Your Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="../landing-page/index.html" class="back-button">←</a>
+            <h1 class="logo">OptimalYou</h1>
+        </nav>
+        
+        <main>
+            <form class="user-form" action="plan/plan.html">
+                <div class="form-group">
+                    <label for="adviceTopics">Domain</label>
+                    <input type="text" id="adviceTopics" placeholder="On what topic do you need advice on?">
+                </div>
+            
+                <div class="form-group">
+                    <label for="budgetAmount">Budget</label>
+                    <input type="number" id="budgetAmount" placeholder="Enter your budget in rupees">
+                </div>
+            
+                <div class="form-group">
+                    <label for="timeFrame">Time Frame</label>
+                    <input type="text" id="timeFrame" placeholder="Specify time frame if present.">
+                </div>
+            
+                <div class="form-group">
+                    <label for="riskTolerance">Risk Tolerance</label>
+                    <input type="text" id="riskTolerance" placeholder="Specify Risk Tolerance if important.">
+                </div>
+            
+                <div class="form-group">
+                    <label for="additionalConcerns">Problem</label>
+                    <textarea id="additionalConcerns" placeholder="Discribe your problem in detail" rows="4"></textarea>
+                </div>
+            
+                <button type="submit" class="next-button">Next</button>
+            </form> 
+        </main>
+    </div>
+    <script src="form-storage.js"></script>
+
+</body>
+</html> 

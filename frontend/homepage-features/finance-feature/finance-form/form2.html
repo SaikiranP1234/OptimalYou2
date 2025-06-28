@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptimalYou - Additional Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="form.html" class="back-button">←</a>
+            <h1 class="logo">OptimalYou</h1>
+        </nav>
+        
+        <main>
+            <form class="user-form" action="form3.html">
+                <div class="form-group">
+                    <label for="health">Health Conditions</label>
+                    <select id="health" multiple>
+                        <option value="None">None</option>
+                        <option value="Diabetes">Diabetes</option>
+                        <option value="Hypertension">Hypertension</option>
+                        <option value="Asthma">Asthma</option>
+                        <option value="Obesity">Obesity</option>
+                        <option value="Heart Disease">Heart Disease</option>
+                        <option value="Arthritis">Arthritis</option>
+                        <option value="Thyroid Issues">Thyroid Issues</option>
+                    </select>
+                    <small>Hold CTRL (Windows) or CMD (Mac) to select multiple.</small>
+                </div>
+            
+                <div class="form-group">
+                    <label for="goals">Fitness Goals</label>
+                    <select id="goals">
+                        <option value="Weight Loss">Weight Loss</option>
+                        <option value="Muscle Gain">Muscle Gain</option>
+                        <option value="Endurance">Endurance</option>
+                        <option value="Flexibility">Flexibility</option>
+                        <option value="Overall Fitness">Overall Fitness</option>
+                        <option value="Toning">Toning</option>
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label>Workout Type</label>
+                    <div>
+                        <input type="checkbox" name="workoutTypes" value="Cardio"> Cardio
+                        <input type="checkbox" name="workoutTypes" value="Strength Training"> Strength Training
+                        <input type="checkbox" name="workoutTypes" value="HIIT"> HIIT (High Intensity Interval Training)
+                        <input type="checkbox" name="workoutTypes" value="Yoga"> Yoga
+                        <input type="checkbox" name="workoutTypes" value="Pilates"> Pilates
+                        <input type="checkbox" name="workoutTypes" value="CrossFit"> CrossFit
+                        <input type="checkbox" name="workoutTypes" value="Calisthenics"> Calisthenics
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="duration">Workout Duration (minutes)</label>
+                    <select id="duration">
+                        <option value="20">20</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label>Preferred Workout Days</label>
+                    <div>
+                        <input type="checkbox" name="preferredWorkoutDays" value="Monday"> Monday
+                        <input type="checkbox" name="preferredWorkoutDays" value="Tuesday"> Tuesday
+                        <input type="checkbox" name="preferredWorkoutDays" value="Wednesday"> Wednesday
+                        <input type="checkbox" name="preferredWorkoutDays" value="Thursday"> Thursday
+                        <input type="checkbox" name="preferredWorkoutDays" value="Friday"> Friday
+                        <input type="checkbox" name="preferredWorkoutDays" value="Saturday"> Saturday
+                        <input type="checkbox" name="preferredWorkoutDays" value="Sunday"> Sunday
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="preferredTime">Preferred Time of Day</label>
+                    <select id="preferredTime">
+                        <option value="Morning">Morning (6 AM - 10 AM)</option>
+                        <option value="Afternoon">Afternoon (12 PM - 4 PM)</option>
+                        <option value="Evening">Evening (5 PM - 9 PM)</option>
+                        <option value="Night">Night (After 9 PM)</option>
+                    </select>
+                </div>
+            
+                <button type="submit" class="next-button">Next</button>
+            </form>                        
+            <div class="illustration">
+                <img src="../images/background.png" alt="Fitness Illustration" class="bg-image">
+            </div>
+        </main>
+    </div>
+    <script src="form2-storage.js"></script>
+
+</body>
+</html> 

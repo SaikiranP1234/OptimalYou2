@@ -1,5 +1,6 @@
 package com.example.OptimalYou.service;
 
+import com.example.OptimalYou.model.ai.FinancialAdviceRequest;
 import com.example.OptimalYou.model.ai.UserDietPreferences;
 import com.example.OptimalYou.model.ai.UserWorkoutPreferences;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,8 @@ public class AiService {
     public String generateWorkout(UserWorkoutPreferences preferences) {
         StringBuilder prompt = new StringBuilder();
 
-        prompt.append("I am creating a personalized workout planner for an individual based on their fitness level, goals, preferences, and available equipment. ");
-        prompt.append("Here's the user's profile:\n\n");
+        prompt.append("I want a personalized workout planner for me based on my fitness level, goals, preferences, and available equipment. ");
+        prompt.append("Here's my profile:\n\n");
 
         // Personal Information
         prompt.append("1. Personal Information:\n");
@@ -85,7 +86,7 @@ public class AiService {
                 : "Not provided"
         ).append("\n\n");
 
-        prompt.append("Based on this information, please design a weekly workout plan tailored to the user's needs. ");
+        prompt.append("Based on this information, please design a weekly workout plan tailored for me. ");
         prompt.append("Include warm-up and cool-down suggestions, exercise names, repetitions/sets (if applicable), and any special tips or recommendations.");
         return prompt.toString();
 
@@ -94,8 +95,8 @@ public class AiService {
     public String generateDiet(UserDietPreferences preferences) {
         StringBuilder prompt = new StringBuilder();
 
-        prompt.append("I am creating a personalized diet plan for an individual based on their health conditions, dietary preferences, and calorie goals. ");
-        prompt.append("Here's the user's profile:\n\n");
+        prompt.append("I am creating a personalized diet plan for me based on my health conditions, dietary preferences, and calorie goals. ");
+        prompt.append("Here's my's profile:\n\n");
 
         // Personal Information
         prompt.append("1. Personal Information:\n");
@@ -106,18 +107,18 @@ public class AiService {
         // Health and Dietary Conditions
         prompt.append("2. Health and Dietary Conditions:\n");
         prompt.append("   - Health conditions: ").append(
-                preferences.getHealthConditions() != null && !preferences.getHealthConditions().isEmpty()
-                        ? String.join(", ", preferences.getHealthConditions())
+                preferences.getHealthConditions() != null
+                        ?  preferences.getHealthConditions()
                         : "None"
         ).append("\n");
         prompt.append("   - Allergies: ").append(
-                preferences.getAllergies() != null && !preferences.getAllergies().isEmpty()
-                        ? String.join(", ", preferences.getAllergies())
+                preferences.getAllergies() != null
+                        ?  preferences.getAllergies()
                         : "None"
         ).append("\n");
         prompt.append("   - Dietary restrictions: ").append(
-                preferences.getDietaryRestrictions() != null && !preferences.getDietaryRestrictions().isEmpty()
-                        ? String.join(", ", preferences.getDietaryRestrictions())
+                preferences.getDietaryRestrictions() != null
+                        ? preferences.getDietaryRestrictions()
                         : "None"
         ).append("\n\n");
 
@@ -125,53 +126,81 @@ public class AiService {
         prompt.append("3. Calorie and Nutrient Goals:\n");
         prompt.append("   - Daily Calorie Goal: ").append(preferences.getDailyCalorieGoal() > 0 ? preferences.getDailyCalorieGoal() + " kcal" : "Not provided").append("\n");
         prompt.append("   - Macronutrient Ratio: ").append(
-                preferences.getMacronutrientRatio() != null && !preferences.getMacronutrientRatio().isEmpty()
-                        ? String.join(", ", preferences.getMacronutrientRatio())
+                preferences.getMacronutrientRatio() != null
+                        ?  preferences.getMacronutrientRatio()
                         : "Not provided"
         ).append("\n\n");
 
         // Meal Preferences
         prompt.append("4. Meal Preferences:\n");
         prompt.append("   - Preferred Cuisines: ").append(
-                preferences.getPreferredCuisines() != null && !preferences.getPreferredCuisines().isEmpty()
-                        ? String.join(", ", preferences.getPreferredCuisines())
+                preferences.getPreferredCuisines() != null
+                        ? preferences.getPreferredCuisines()
                         : "Not provided"
         ).append("\n");
         prompt.append("   - Preferred Ingredients: ").append(
-                preferences.getPreferredIngredients() != null && !preferences.getPreferredIngredients().isEmpty()
-                        ? String.join(", ", preferences.getPreferredIngredients())
+                preferences.getPreferredIngredients() != null
+                        ? preferences.getPreferredIngredients()
                         : "Not provided"
         ).append("\n");
         prompt.append("   - Avoided Ingredients: ").append(
-                preferences.getAvoidedIngredients() != null && !preferences.getAvoidedIngredients().isEmpty()
-                        ? String.join(", ", preferences.getAvoidedIngredients())
+                preferences.getAvoidedIngredients() != null
+                        ? preferences.getAvoidedIngredients()
                         : "Not provided"
         ).append("\n\n");
 
         // Meal Frequency
         prompt.append("5. Meal Frequency:\n");
-        prompt.append("   - Meals per Day: ").append(preferences.getMealsPerDay() > 0 ? preferences.getMealsPerDay() : "Not provided").append("\n");
+        prompt.append("   - Meals per Day: ").append(preferences.getMealsPerDay() != null ? preferences.getMealsPerDay() : "Not provided").append("\n");
         prompt.append("   - Preferred Meal Times: ").append(
-                preferences.getPreferredMealTimes() != null && !preferences.getPreferredMealTimes().isEmpty()
-                        ? String.join(", ", preferences.getPreferredMealTimes())
+                preferences.getPreferredMealTimes() != null
+                        ? preferences.getPreferredMealTimes()
                         : "Not provided"
         ).append("\n\n");
 
         // Grocery List
         prompt.append("6. Grocery List:\n");
         prompt.append("   - Items: ").append(
-                preferences.getGroceryList() != null && !preferences.getGroceryList().isEmpty()
-                        ? String.join(", ", preferences.getGroceryList())
+                preferences.getGroceryList() != null
+                        ? preferences.getGroceryList()
                         : "Not provided"
         ).append("\n\n");
 
         // Special Requirements
         prompt.append("7. Special Requirements:\n");
-        prompt.append("   - Include recipes: ").append(preferences.isIncludesRecipes() ? "Yes" : "No").append("\n");
-        prompt.append("   - Include shopping list: ").append(preferences.isIncludesShoppingList() ? "Yes" : "No").append("\n\n");
+        prompt.append("   - Include recipes ");
+        prompt.append("   - Include shopping list ");
 
-        prompt.append("Based on this information, please design a weekly diet plan tailored to the user's needs. ");
+        prompt.append("Based on this information, please design a weekly diet plan tailored to my needs. ");
         prompt.append("Include meal suggestions, grocery items, recipes, and a shopping list (if applicable).");
+
+        return prompt.toString();
+    }
+
+    public String generateAdvice(FinancialAdviceRequest far) {
+        StringBuilder prompt = new StringBuilder();
+
+        prompt.append("Provide financial advice based on the following details:\n\n");
+
+        prompt.append("1. Topics of Interest: ")
+                .append(far.getAdviceTopics() != null ? far.getAdviceTopics() : "Not provided")
+                .append(".\n");
+
+        prompt.append("2. Budget/Amount involved: ")
+                .append(far.getBudgetAmount() != null ? far.getBudgetAmount() + "Rupees" : "Not specified")
+                .append(".\n");
+
+        prompt.append("3. Time Frame: ")
+                .append(far.getTimeFrame() != null ? far.getTimeFrame() : "Not specified")
+                .append(".\n");
+
+        prompt.append("4. Risk Tolerance: ")
+                .append(far.getRiskTolerance() != null ? far.getRiskTolerance() : "Not specified")
+                .append(".\n");
+
+        prompt.append("5. Additional Concerns: ")
+                .append(far.getAdditionalConcerns() != null ? far.getAdditionalConcerns() : "None")
+                .append(".\n");
 
         return prompt.toString();
     }
