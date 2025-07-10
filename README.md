@@ -48,7 +48,6 @@
 |----------------------------------------|---------------------------------------------------|
 | Data security and user authentication | JWT-based access control                           |
 | AI integration for personalization     | GPT models for accurate and adaptive suggestions  |
-| Handling large user data               | Optimized queries and caching strategies          |
 
 ## 📈 Results
 - Fully functional MVP
